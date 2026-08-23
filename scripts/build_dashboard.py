@@ -406,9 +406,7 @@ header .stamp {
   color: var(--ink-2);
 }
 .disclaimer {
-  margin: 4px 0 0;
-  padding-left: 14px;
-  border-left: 2px solid var(--line-strong);
+  margin: 0;
   color: var(--ink-3);
   font-size: 13px;
   max-width: 62ch;
@@ -672,17 +670,17 @@ def build(data, entries):
         % (events_html, html.escape(journal_name or "—")))
 
     parts.append(
+        '<p class="disclaimer">Аматорський хобі-проєкт на основі відкритих джерел, '
+        'а не військова аналітика. Цінність — у послідовній динаміці тижнів, а не в '
+        'абсолютних числах. Дані про втрати й спроможності сторін мають велику '
+        'невизначеність, обидві сторони ведуть інформаційні операції.</p>')
+
+    parts.append(
         '<footer><span>Методологія v%s · ваги і рубрики — '
         '<span class="mono">references/methodology.md</span></span>'
         '<span>Сторінку згенеровано %s зі <span class="mono">data/history.json</span></span>'
         '</footer>' % (html.escape(str(data.get("methodology_version", "—"))),
                        fmt_date_ua(latest["date"])))
-
-    parts.append(
-        '<p class="disclaimer">Аматорський хобі-проєкт на основі відкритих джерел, '
-        'а не військова аналітика. Цінність — у послідовній динаміці тижнів, а не в '
-        'абсолютних числах. Дані про втрати й спроможності сторін мають велику '
-        'невизначеність, обидві сторони ведуть інформаційні операції.</p>')
 
     parts.append('</div>')
 
