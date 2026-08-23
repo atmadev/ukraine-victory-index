@@ -406,11 +406,11 @@ header .stamp {
   color: var(--ink-2);
 }
 .disclaimer {
-  margin: 16px 0 0;
+  margin: 4px 0 0;
   padding-left: 14px;
   border-left: 2px solid var(--line-strong);
-  color: var(--ink-2);
-  font-size: 14.5px;
+  color: var(--ink-3);
+  font-size: 13px;
   max-width: 62ch;
 }
 
@@ -601,10 +601,6 @@ def build(data, entries):
         '<h1>Індекси балансу сил і стратегічного становища</h1>'
         '<p class="stamp">Останній розрахунок: <strong>%s</strong> · записів в історії: %d · '
         'методологія v%s</p>'
-        '<p class="disclaimer">Аматорський хобі-проєкт на основі відкритих джерел, '
-        'а не військова аналітика. Цінність — у послідовній динаміці тижнів, а не в '
-        'абсолютних числах. Дані про втрати й спроможності сторін мають велику '
-        'невизначеність, обидві сторони ведуть інформаційні операції.</p>'
         '</header>'
         % (fmt_date_ua(latest["date"]), len(entries),
            html.escape(str(data.get("methodology_version", "—")))))
@@ -681,6 +677,12 @@ def build(data, entries):
         '<span>Сторінку згенеровано %s зі <span class="mono">data/history.json</span></span>'
         '</footer>' % (html.escape(str(data.get("methodology_version", "—"))),
                        fmt_date_ua(latest["date"])))
+
+    parts.append(
+        '<p class="disclaimer">Аматорський хобі-проєкт на основі відкритих джерел, '
+        'а не військова аналітика. Цінність — у послідовній динаміці тижнів, а не в '
+        'абсолютних числах. Дані про втрати й спроможності сторін мають велику '
+        'невизначеність, обидві сторони ведуть інформаційні операції.</p>')
 
     parts.append('</div>')
 
