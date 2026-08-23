@@ -72,15 +72,40 @@ description: >
 попередні записи. Якщо методологія змінювалась — онови `methodology_version` і
 задокументуй зміну в розділі CHANGELOG у `references/methodology.md`.
 
-### Крок 7. Закомітити
+### Крок 7. Оновити дашборд
+Після оновлення історії перезбери сторінку і онови опублікований артефакт —
+до коміту, щоб згенерований HTML потрапив у той самий коміт:
+
 ```
-git add journal/ data/
+python3 scripts/build_dashboard.py
+```
+
+Скрипт читає `data/history.json` і останній звіт із `journal/` (блок «Ключові
+події») і перезаписує `dashboard/index.html`. Далі опублікуй сторінку
+інструментом **Artifact**:
+
+- `file_path`: `dashboard/index.html`
+- `url`: значення `dashboard_url` з `data/artifact.json` — **обов'язково**, інакше
+  замість оновлення з'явиться новий артефакт з іншим посиланням;
+- `favicon`: `📊` (стабільний, не міняти).
+
+Якщо `data/artifact.json` немає — публікуй без `url` (це перша публікація) і
+збережи отримане посилання у `data/artifact.json` як
+`{"dashboard_url": "…"}`.
+
+Верстку сторінки правити лише в генераторі `scripts/build_dashboard.py`, не в
+згенерованому HTML. Якщо змінюється склад під-індексів або ваги — онови й
+константи `BALANCE_PARTS` / `STRATEGIC_PARTS` у генераторі.
+
+### Крок 8. Закомітити
+```
+git add journal/ data/ dashboard/
 git commit -m "index: звіт за YYYY-MM-DD (БС <X>, СТ <Y>)"
 git push -u origin <гілка>
 ```
 За замовчуванням гілка — `main` (там живе історія і звідти працює щотижнева
 автоматизація). Якщо сесія стартувала на іншій гілці — перемкнись на `main`
-(`git fetch origin main && git checkout main`) перед кроками 5–7, окрім випадку,
+(`git fetch origin main && git checkout main`) перед кроками 5–8, окрім випадку,
 коли користувач явно попросив іншу гілку.
 
 ## Схема data/history.json

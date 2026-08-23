@@ -1,0 +1,314 @@
+<title>Victory Index</title>
+<meta name="description" content="Тижневі індекси балансу сил і стратегічного становища у війні росії проти України.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f6f7;
+  --surface: #ffffff;
+  --surface-2: #eaeef1;
+  --ink: #14181c;
+  --ink-2: #4c555d;
+  --ink-3: #79838c;
+  --line: #dde3e8;
+  --line-strong: #c3ccd4;
+  --pos: #2a78d6;
+  --neg: #e34948;
+  --prog: #1baf7a;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s-total: #4a3aa7;
+  --shadow: 0 1px 2px rgba(20, 24, 28, .06), 0 8px 24px -18px rgba(20, 24, 28, .5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #101416;
+    --surface: #191e21;
+    --surface-2: #232a2e;
+    --ink: #f0f3f5;
+    --ink-2: #b4bec6;
+    --ink-3: #838f98;
+    --line: #2b3338;
+    --line-strong: #3c464d;
+    --pos: #3987e5;
+    --neg: #e66767;
+    --prog: #199e70;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s-total: #9085e9;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101416;
+  --surface: #191e21;
+  --surface-2: #232a2e;
+  --ink: #f0f3f5;
+  --ink-2: #b4bec6;
+  --ink-3: #838f98;
+  --line: #2b3338;
+  --line-strong: #3c464d;
+  --pos: #3987e5;
+  --neg: #e66767;
+  --prog: #199e70;
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #c98500;
+  --s-total: #9085e9;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Literata", Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 20px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+h1, h2, h3, .ui { font-family: "Commissioner", "Segoe UI", system-ui, sans-serif; }
+h1 {
+  font-size: clamp(30px, 5vw, 44px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+h2 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 14px;
+}
+h3 { font-size: 17px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+a { color: inherit; text-underline-offset: 2px; text-decoration-color: var(--line-strong); }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--pos); outline-offset: 2px; border-radius: 3px; }
+.mono, .num, .tick, .slabel, .delta, .weight, .data-table td, .data-table th {
+  font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+header .eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 10px;
+}
+header .stamp {
+  margin: 14px 0 0;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.disclaimer {
+  margin: 16px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--line-strong);
+  color: var(--ink-2);
+  font-size: 14.5px;
+  max-width: 62ch;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+.heroes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.hero .scale-note {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 4px 0 0;
+}
+.hero .value {
+  font-family: "Commissioner", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(46px, 8vw, 68px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin: 18px 0 6px;
+}
+.hero .caption { color: var(--ink-2); font-size: 14.5px; margin: 12px 0 0; }
+
+.track { position: relative; height: 12px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+.track-div .track-zero {
+  position: absolute; left: 50%; top: -3px; bottom: -3px; width: 2px;
+  margin-left: -1px; background: var(--line-strong); z-index: 2;
+}
+.fill { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.fill-pos { background: var(--pos); }
+.fill-neg { background: var(--neg); }
+.fill-prog { background: var(--prog); left: 0; }
+.hero .track { height: 16px; }
+
+.delta { font-size: 14px; color: var(--ink-2); display: inline-flex; align-items: baseline; gap: 6px; }
+.delta .arrow { font-size: 11px; }
+.delta-up .arrow { color: var(--pos); }
+.delta-down .arrow { color: var(--neg); }
+.delta-note { color: var(--ink-3); font-size: 12px; letter-spacing: .04em; }
+.delta-none { color: var(--ink-3); }
+
+.breakdowns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.rows { display: flex; flex-direction: column; gap: 16px; }
+.row .row-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+.row .name { font-family: "Commissioner", system-ui, sans-serif; font-size: 15px; }
+.row .weight { font-size: 11.5px; color: var(--ink-3); }
+.row .num { font-size: 15px; font-weight: 600; }
+.row-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; }
+.ends { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-3); }
+
+.chart-block + .chart-block { margin-top: 18px; }
+.chart-wrap { overflow-x: auto; }
+.chart { width: 100%; min-width: 560px; height: auto; display: block; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.grid-zero { stroke: var(--line-strong); stroke-width: 1.5; }
+.tick { fill: var(--ink-3); font-size: 11px; font-family: "IBM Plex Mono", monospace; }
+.line { stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.line-total { stroke-width: 3; }
+.dot { stroke: var(--surface); stroke-width: 2; }
+.slabel { fill: var(--ink-2); font-size: 11.5px; font-family: "IBM Plex Mono", monospace; }
+.slabel-total { fill: var(--ink); font-weight: 600; }
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 0; margin: 0 0 10px; }
+.legend li {
+  display: flex; align-items: center; gap: 7px;
+  font-family: "Commissioner", system-ui, sans-serif; font-size: 13px; color: var(--ink-2);
+}
+.swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+.events { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.events li { padding-left: 18px; position: relative; font-size: 15px; }
+.events li::before {
+  content: ""; position: absolute; left: 0; top: 10px;
+  width: 7px; height: 7px; border-radius: 2px; background: var(--line-strong);
+}
+.empty { color: var(--ink-3); }
+
+details.table-view { margin-top: 18px; }
+details.table-view summary {
+  cursor: pointer; font-family: "Commissioner", system-ui, sans-serif;
+  font-size: 14px; color: var(--ink-2);
+}
+.table-scroll { overflow-x: auto; margin-top: 12px; }
+.data-table { border-collapse: collapse; font-size: 12.5px; width: 100%; }
+.data-table caption { text-align: left; color: var(--ink-3); font-size: 12px; padding-bottom: 8px; }
+.data-table th, .data-table td { padding: 7px 10px; text-align: right; white-space: nowrap; }
+.data-table thead th { color: var(--ink-3); font-weight: 400; border-bottom: 1px solid var(--line); text-align: right; }
+.data-table tbody th { text-align: left; color: var(--ink-2); font-weight: 600; }
+.data-table tbody tr + tr th, .data-table tbody tr + tr td { border-top: 1px solid var(--line); }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--ink-3);
+  font-size: 13.5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  justify-content: space-between;
+}
+
+@media (max-width: 760px) {
+  .heroes, .breakdowns { grid-template-columns: 1fr; }
+  .wrap { padding: 28px 16px 48px; gap: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+<div class="wrap">
+<header><p class="eyebrow">Війна росії проти України · тижневий зріз</p><h1>Індекси балансу сил і стратегічного становища</h1><p class="stamp">Останній розрахунок: <strong>23 серпня 2026</strong> · записів в історії: 1 · методологія v1.0</p><p class="disclaimer">Аматорський хобі-проєкт на основі відкритих джерел, а не військова аналітика. Цінність — у послідовній динаміці тижнів, а не в абсолютних числах. Дані про втрати й спроможності сторін мають велику невизначеність, обидві сторони ведуть інформаційні операції.</p></header>
+<section class="heroes"><article class="card hero"><h3>Баланс сил</h3><p class="scale-note">−100…+100 · 0 = паритет спроможностей</p><p class="value">+2.0</p><div class="track track-div"><div class="track-zero"></div><div class="fill fill-pos" style="left:50.000%;width:1.000%"></div></div><div class="row-foot"><span class="ends">перевага рф</span><span class="ends">перевага України</span></div><p class="caption">Плюс — перевага України. Паритет означає не рівність ресурсів, а рівність спроможності досягати своїх (асиметричних) воєнних цілей.</p><p style="margin:10px 0 0"><span class="delta delta-none">перший запуск</span></p></article><article class="card hero"><h3>Стратегічний індекс</h3><p class="scale-note">0…100 · 100 = стійкий вигідний мир</p><p class="value">33.6</p><div class="track track-prog"><div class="fill fill-prog" style="width:33.600%"></div></div><div class="row-foot"><span class="ends">0 · поразка</span><span class="ends">100 · мир досягнуто</span></div><p class="caption">Повільний індекс: реагує на структурні й дипломатичні зрушення, а не на тижневі фронтові зведення. Шкали двох індексів різні й ніколи не усереднюються між собою.</p><p style="margin:10px 0 0"><span class="delta delta-none">перший запуск</span></p></article></section>
+<section class="breakdowns"><div class="card"><h2>Баланс сил: під-індекси</h2><div class="rows"><div class="row"><div class="row-head"><span class="name">Військовий <span class="weight">вага 0.40</span></span><span class="num">−0.5</span></div><div class="track track-div"><div class="track-zero"></div><div class="fill fill-neg" style="left:49.750%;width:0.250%"></div></div><div class="row-foot"><span class="ends">−100</span><span class="ends">0 · паритет</span><span class="ends">+100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div>
+<div class="row"><div class="row-head"><span class="name">Економічний <span class="weight">вага 0.25</span></span><span class="num">+17.0</span></div><div class="track track-div"><div class="track-zero"></div><div class="fill fill-pos" style="left:50.000%;width:8.500%"></div></div><div class="row-foot"><span class="ends">−100</span><span class="ends">0 · паритет</span><span class="ends">+100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div>
+<div class="row"><div class="row-head"><span class="name">Людський ресурс <span class="weight">вага 0.20</span></span><span class="num">−12.0</span></div><div class="track track-div"><div class="track-zero"></div><div class="fill fill-neg" style="left:44.000%;width:6.000%"></div></div><div class="row-foot"><span class="ends">−100</span><span class="ends">0 · паритет</span><span class="ends">+100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div>
+<div class="row"><div class="row-head"><span class="name">Міжнародна підтримка <span class="weight">вага 0.15</span></span><span class="num">+2.5</span></div><div class="track track-div"><div class="track-zero"></div><div class="fill fill-pos" style="left:50.000%;width:1.250%"></div></div><div class="row-foot"><span class="ends">−100</span><span class="ends">0 · паритет</span><span class="ends">+100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div></div></div><div class="card"><h2>Стратегічний: компоненти</h2><div class="rows"><div class="row"><div class="row-head"><span class="name">Гарантії безпеки <span class="weight">вага 0.40</span></span><span class="num">30.0</span></div><div class="track track-prog"><div class="fill fill-prog" style="width:30.000%"></div></div><div class="row-foot"><span class="ends">0</span><span class="ends">100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div>
+<div class="row"><div class="row-head"><span class="name">ЄС та відбудова <span class="weight">вага 0.30</span></span><span class="num">40.0</span></div><div class="track track-prog"><div class="fill fill-prog" style="width:40.000%"></div></div><div class="row-foot"><span class="ends">0</span><span class="ends">100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div>
+<div class="row"><div class="row-head"><span class="name">Справедливість <span class="weight">вага 0.30</span></span><span class="num">32.0</span></div><div class="track track-prog"><div class="fill fill-prog" style="width:32.000%"></div></div><div class="row-foot"><span class="ends">0</span><span class="ends">100</span></div><div class="row-foot" style="margin-top:4px"><span class="delta delta-none">перший запуск</span></div></div></div></div></section>
+<section class="card chart-block"><h2>Динаміка балансу сил</h2><ul class="legend"><li><span class="swatch" style="background:var(--s-total)"></span>Баланс сил</li><li><span class="swatch" style="background:var(--s1)"></span>Військовий</li><li><span class="swatch" style="background:var(--s2)"></span>Економічний</li><li><span class="swatch" style="background:var(--s3)"></span>Людський ресурс</li><li><span class="swatch" style="background:var(--s4)"></span>Міжнародна підтримка</li></ul><div class="chart-wrap"><svg class="chart" viewBox="0 0 820 320" role="img" preserveAspectRatio="xMidYMid meet" aria-labelledby="chart-balance-t">
+<title id="chart-balance-t">Динаміка: Баланс сил, Військовий, Економічний, Людський ресурс, Міжнародна підтримка</title>
+<line class="grid" x1="46" y1="286.00" x2="668.00" y2="286.00"/>
+<text class="tick" x="36" y="290.00" text-anchor="end">−20</text>
+<line class="grid" x1="46" y1="219.00" x2="668.00" y2="219.00"/>
+<text class="tick" x="36" y="223.00" text-anchor="end">−10</text>
+<line class="grid grid-zero" x1="46" y1="152.00" x2="668.00" y2="152.00"/>
+<text class="tick" x="36" y="156.00" text-anchor="end">0</text>
+<line class="grid" x1="46" y1="85.00" x2="668.00" y2="85.00"/>
+<text class="tick" x="36" y="89.00" text-anchor="end">10</text>
+<line class="grid" x1="46" y1="18.00" x2="668.00" y2="18.00"/>
+<text class="tick" x="36" y="22.00" text-anchor="end">20</text>
+<text class="tick" x="357.00" y="308" text-anchor="middle">23.08</text>
+<circle class="dot dot-total" cx="357.00" cy="138.60" r="5" fill="var(--s-total)"><title>23.08 — Баланс сил: 2.0</title></circle>
+<circle class="dot" cx="357.00" cy="155.35" r="4.5" fill="var(--s1)"><title>23.08 — Військовий: −0.5</title></circle>
+<circle class="dot" cx="357.00" cy="38.10" r="4.5" fill="var(--s2)"><title>23.08 — Економічний: 17.0</title></circle>
+<circle class="dot" cx="357.00" cy="232.40" r="4.5" fill="var(--s3)"><title>23.08 — Людський ресурс: −12.0</title></circle>
+<circle class="dot" cx="357.00" cy="135.25" r="4.5" fill="var(--s4)"><title>23.08 — Міжнародна підтримка: 2.5</title></circle>
+<circle cx="369.00" cy="34.10" r="4" fill="var(--s2)"/>
+<text class="slabel" x="378.00" y="38.10">Економічний 17.0</text>
+<circle cx="369.00" cy="131.25" r="4" fill="var(--s4)"/>
+<text class="slabel" x="378.00" y="135.25">Міжнародний 2.5</text>
+<circle cx="369.00" cy="148.25" r="4" fill="var(--s-total)"/>
+<text class="slabel slabel-total" x="378.00" y="152.25">Баланс 2.0</text>
+<circle cx="369.00" cy="165.25" r="4" fill="var(--s1)"/>
+<text class="slabel" x="378.00" y="169.25">Військовий −0.5</text>
+<circle cx="369.00" cy="228.40" r="4" fill="var(--s3)"/>
+<text class="slabel" x="378.00" y="232.40">Людський −12.0</text>
+</svg></div><p class="caption" style="color:var(--ink-3);font-size:13px;margin:10px 0 0">Вісь обрізана до ±20 зі шкали −100…+100, щоб дрібні тижневі зрушення лишались видимими; нульова лінія — паритет.</p></section>
+<section class="card chart-block"><h2>Динаміка стратегічного індексу</h2><ul class="legend"><li><span class="swatch" style="background:var(--s-total)"></span>Стратегічний</li><li><span class="swatch" style="background:var(--s1)"></span>Гарантії безпеки</li><li><span class="swatch" style="background:var(--s2)"></span>ЄС та відбудова</li><li><span class="swatch" style="background:var(--s3)"></span>Справедливість</li></ul><div class="chart-wrap"><svg class="chart" viewBox="0 0 820 320" role="img" preserveAspectRatio="xMidYMid meet" aria-labelledby="chart-strategic-t">
+<title id="chart-strategic-t">Динаміка: Стратегічний, Гарантії безпеки, ЄС та відбудова, Справедливість</title>
+<line class="grid" x1="46" y1="286.00" x2="668.00" y2="286.00"/>
+<text class="tick" x="36" y="290.00" text-anchor="end">0</text>
+<line class="grid" x1="46" y1="219.00" x2="668.00" y2="219.00"/>
+<text class="tick" x="36" y="223.00" text-anchor="end">25</text>
+<line class="grid" x1="46" y1="152.00" x2="668.00" y2="152.00"/>
+<text class="tick" x="36" y="156.00" text-anchor="end">50</text>
+<line class="grid" x1="46" y1="85.00" x2="668.00" y2="85.00"/>
+<text class="tick" x="36" y="89.00" text-anchor="end">75</text>
+<line class="grid" x1="46" y1="18.00" x2="668.00" y2="18.00"/>
+<text class="tick" x="36" y="22.00" text-anchor="end">100</text>
+<text class="tick" x="357.00" y="308" text-anchor="middle">23.08</text>
+<circle class="dot dot-total" cx="357.00" cy="195.95" r="5" fill="var(--s-total)"><title>23.08 — Стратегічний: 33.6</title></circle>
+<circle class="dot" cx="357.00" cy="205.60" r="4.5" fill="var(--s1)"><title>23.08 — Гарантії безпеки: 30.0</title></circle>
+<circle class="dot" cx="357.00" cy="178.80" r="4.5" fill="var(--s2)"><title>23.08 — ЄС та відбудова: 40.0</title></circle>
+<circle class="dot" cx="357.00" cy="200.24" r="4.5" fill="var(--s3)"><title>23.08 — Справедливість: 32.0</title></circle>
+<circle cx="369.00" cy="174.80" r="4" fill="var(--s2)"/>
+<text class="slabel" x="378.00" y="178.80">ЄС 40.0</text>
+<circle cx="369.00" cy="191.95" r="4" fill="var(--s-total)"/>
+<text class="slabel slabel-total" x="378.00" y="195.95">Стратегічний 33.6</text>
+<circle cx="369.00" cy="208.95" r="4" fill="var(--s3)"/>
+<text class="slabel" x="378.00" y="212.95">Справедливість 32.0</text>
+<circle cx="369.00" cy="225.95" r="4" fill="var(--s1)"/>
+<text class="slabel" x="378.00" y="229.95">Безпека 30.0</text>
+</svg></div><details class="table-view"><summary>Таблиця всіх значень</summary><div class="table-scroll"><table class="data-table"><caption>Усі записи історії, від найновішого</caption><thead><tr><th scope="col">Дата</th><th scope="col">Баланс сил</th><th scope="col">Військовий</th><th scope="col">Економічний</th><th scope="col">Людський ресурс</th><th scope="col">Міжнародна підтримка</th><th scope="col">Стратегічний</th><th scope="col">Гарантії безпеки</th><th scope="col">ЄС та відбудова</th><th scope="col">Справедливість</th></tr></thead><tbody><tr><th scope="row">23.08</th><td><strong>+2.0</strong></td><td>−0.5</td><td>+17.0</td><td>−12.0</td><td>+2.5</td><td><strong>33.6</strong></td><td>30.0</td><td>40.0</td><td>32.0</td></tr></tbody></table></div></details></section>
+<section class="card"><h2>Ключові події останнього тижня</h2><ul class="events"><li>ISW завершив оновлення геометрії лінії фронту станом на 22.08.2026 14:00 ET; істотних змін немає — темп російського наступу лишається низьким на третьому місяці "весняно-літньої кампанії 2026", що не дала оперативно значущих здобутків (<a href="https://www.russiamatters.org/news/russia-ukraine-war-report-card/russia-ukraine-war-report-card-aug-18-2026" target="_blank" rel="noopener">Russia Matters, 18.08</a>; <a href="https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-august-13-2026" target="_blank" rel="noopener">Critical Threats</a>).</li><li>Нові удари по нафтопереробці рф: Ільський і Сизранський НПЗ (Краснодарський край) та НПЗ у Башкортостані (Уфа) — кампанія триває без ознак ослаблення; Reuters оцінює сукупне вибиття потужностей у ≈17% (<a href="https://www.themoscowtimes.com/2026/08/08/ukraine-strikes-oil-refinery-in-russias-krasnodar-region-in-drone-attack-a93441" target="_blank" rel="noopener">Moscow Times</a>).</li><li>Дефіцит бюджету рф за 7 місяців підтверджено на рівні <strong>6.5 трлн руб. (~$78.7 млрд, 2.8% ВВП)</strong>; держзакупівлі (переважно ОПК) зросли на 39% — до 8.4 трлн руб. (<a href="https://newsukraine.rbc.ua/news/russia-s-budget-deficit-surges-despite-high-1786471813.html" target="_blank" rel="noopener">RBC-Ukraine/Bloomberg</a>).</li><li>Нова деталь по дефіциту ППО: Україна має доступ лише до ~1% запасів ракет Patriot США (проти запитаних 5% для покриття зими); виробництво Lockheed Martin (~1.7 перехоплювача/добу) у ~132 рази відстає від темпу витрат (<a href="https://www.rferl.org/a/ukraine-patriots-russia-shortage-us-stockpile/33823317.html" target="_blank" rel="noopener">RFE/RL</a>).</li><li>Угорщина підтверджено блокує кластери 2–3 переговорів з ЄС; наступна спроба — 1 вересня, без нових зрушень від ранкового звіту (<a href="https://news.liga.net/en/politics/news/hungary-has-blocked-the-approval-of-two-clusters-for-ukraine-and-moldova-for-the-second-time" target="_blank" rel="noopener">LIGA.net</a>).</li></ul><p class="caption" style="color:var(--ink-3);font-size:13px">Джерело: звіт <span class="mono">journal/2026-08-23.md</span>.</p></section>
+<footer><span>Методологія v1.0 · ваги і рубрики — <span class="mono">references/methodology.md</span></span><span>Сторінку згенеровано 23 серпня 2026 зі <span class="mono">data/history.json</span></span></footer>
+</div>
