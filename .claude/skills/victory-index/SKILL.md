@@ -95,6 +95,12 @@ git push
         "human": -15.0,
         "international": 2.0
       },
+      "balance_factors": {
+        "military": {"territorial": 0.0, "losses": 0.0, "fire_tech": 0.0, "deep_strike": 0.0, "production": 0.0},
+        "economic": {"ua_financing": 0.0, "ru_economy": 0.0, "sanctions": 0.0, "energy_refining": 0.0},
+        "human": {"ua_mobilization": 0.0, "ru_recruitment": 0.0, "demography": 0.0, "resilience": 0.0},
+        "international": {"mil_aid": 0.0, "fin_support": 0.0, "cohesion_us": 0.0, "ru_backers": 0.0}
+      },
       "strategic": {
         "total": 31.5,
         "security": 25.0,
