@@ -409,7 +409,6 @@ header .stamp {
   margin: 0;
   color: var(--ink-3);
   font-size: 13px;
-  max-width: 62ch;
 }
 
 .card {
